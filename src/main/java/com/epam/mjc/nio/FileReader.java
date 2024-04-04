@@ -8,9 +8,7 @@ import java.io.IOException;
 public class FileReader {
 
     public Profile getDataFromFile(File file) {
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader(file));
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             Profile profile = new Profile();
             while ((line = reader.readLine()) != null) {
@@ -36,14 +34,6 @@ public class FileReader {
         } catch (IOException e) {
             e.printStackTrace();
             return null; // Or handle the exception according to your application's requirements
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 }
